@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
+
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials')
@@ -36,7 +38,7 @@ app.get('/', (req, res) => {
     title: 'Home',
     pageTitle: 'Home Page',
     welcomeMessage: 'Welcome to my website.'
-  })
+  });
 });
 
 app.get('/about', (req, res) => {
@@ -46,12 +48,20 @@ app.get('/about', (req, res) => {
   });
 });
 
-app.get('/bad', (req, res) => {
-  res.send({
-    errorMessage: 'Unable to handle request.'
-  })
-})
+app.get('/projects', (req, res) => {
+  res.render('projects.hbs', {
+    title: 'Projects',
+    pageTitle: 'Projects Page'
+  });
+});
 
-app.listen(3000, () => {
-  console.log('Server is upon port 3000');
+app.get('/portfolio', (req, res) => {
+  res.render('portfolio.hbs', {
+    title: 'Portfolio',
+    pageTitle: 'Portfolio Page'
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Server is upon port ${port}`);
 });
